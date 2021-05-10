@@ -60,48 +60,49 @@ CREATE TABLE public."SystemVerifications"
     "EmployerId" integer,
     "SystemVerified" boolean,
     "DateOfVerification" date,
+    "SystemUserId" integer,
     PRIMARY KEY ("Id")
 );
 
-ALTER TABLE public."Users"
-    ADD FOREIGN KEY ("Id")
-    REFERENCES public."SystemUsers" ("UserId")
+ALTER TABLE public."SystemUsers"
+    ADD FOREIGN KEY ("UserId")
+    REFERENCES public."Users" ("Id")
     NOT VALID;
 
 
-ALTER TABLE public."Users"
-    ADD FOREIGN KEY ("Id")
-    REFERENCES public."Candidates" ("UserId")
+ALTER TABLE public."Candidates"
+    ADD FOREIGN KEY ("UserId")
+    REFERENCES public."Users" ("Id")
     NOT VALID;
 
 
-ALTER TABLE public."Users"
-    ADD FOREIGN KEY ("Id")
+ALTER TABLE public."Employers"
+    ADD FOREIGN KEY ("UserId")
+    REFERENCES public."Users" ("Id")
+    NOT VALID;
+
+
+ALTER TABLE public."EmailVerifications"
+    ADD FOREIGN KEY ("UserId")
+    REFERENCES public."Users" ("Id")
+    NOT VALID;
+
+
+ALTER TABLE public."JobPositions"
+    ADD FOREIGN KEY ("EmployerId")
     REFERENCES public."Employers" ("UserId")
     NOT VALID;
 
 
-ALTER TABLE public."Employers"
-    ADD FOREIGN KEY ("UserId")
-    REFERENCES public."JobPositions" ("EmployerId")
+ALTER TABLE public."SystemVerifications"
+    ADD FOREIGN KEY ("EmployerId")
+    REFERENCES public."Employers" ("UserId")
     NOT VALID;
 
 
-ALTER TABLE public."Users"
-    ADD FOREIGN KEY ("Id")
-    REFERENCES public."JobPositions" ("EmployerId")
-    NOT VALID;
-
-
-ALTER TABLE public."Employers"
-    ADD FOREIGN KEY ("UserId")
-    REFERENCES public."SystemVerifications" ("EmployerId")
-    NOT VALID;
-
-
-ALTER TABLE public."Users"
-    ADD FOREIGN KEY ("Id")
-    REFERENCES public."EmailVerifications" ("UserId")
+ALTER TABLE public."SystemVerifications"
+    ADD FOREIGN KEY ("SystemUserId")
+    REFERENCES public."SystemUsers" ("UserId")
     NOT VALID;
 
 END;
